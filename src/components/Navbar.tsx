@@ -59,16 +59,16 @@ export default function Navbar({
   const loggedOutRoutes = [
     { name: "Home", href: "#" },
     { name: "Shop Parts", href: "#shop" },
-    { name: "About Us", href: "#about" },
-    { name: "Contact Us", href: "#contact" }
+    { name: "About Us", href: "About" },
+    { name: "Contact Us", href: "Contact" }
   ];
 
   const loggedInRoutes = [
     { name: "Home", href: "#" },
     { name: "Shop Parts", href: "#shop" },
-    { name: "About Us", href: "#about" },
-    { name: "Contact Us", href: "#contact" },
-    { name: " Dashboard", href: "#admin" }
+    { name: "About Us", href: "About" },
+    { name: "Contact Us", href: "Contact" },
+    { name: " Dashboard", href: `Dashboard/${UserInfo?.role}` }
   ];
 
   const activeRoutes = UserInfo ? loggedInRoutes : loggedOutRoutes;
