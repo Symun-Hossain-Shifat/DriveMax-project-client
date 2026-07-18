@@ -16,13 +16,15 @@ import {
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
+interface NavbarProps {
+  onCartClick?: () => void;
+  onWishlistClick?: () => void;
+}
+
 export default function Navbar({
   onCartClick,
-  onWishlistClick
-}: {
-  onCartClick: () => void;
-  onWishlistClick: () => void;
-}) {
+  onWishlistClick,
+}: NavbarProps) {
   const { isLoggedIn, setIsLoggedIn, cart, wishlist, activeVehicle } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -173,7 +175,7 @@ export default function Navbar({
 
               {/* Wishlist Button */}
               <button
-                onClick={onWishlistClick}
+                onClick={() => onWishlistClick?.()}
                 className="relative p-2 sm:p-2.5 rounded-full hover:bg-zinc-900 border border-transparent hover:border-zinc-800 text-zinc-300 hover:text-amber-400 transition-all duration-300 cursor-pointer"
                 title="View Wishlist"
               >
@@ -187,7 +189,7 @@ export default function Navbar({
 
               {/* Shopping Cart Button */}
               <button
-                onClick={onCartClick}
+                onClick={() => onCartClick?.()}
                 className="relative p-2 sm:p-2.5 rounded-full hover:bg-zinc-900 border border-transparent hover:border-zinc-800 text-zinc-300 hover:text-amber-400 transition-all duration-300 cursor-pointer"
                 title="View Cart"
               >
