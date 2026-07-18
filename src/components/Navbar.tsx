@@ -14,6 +14,7 @@ import {
   Car
 } from "./Icons";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 
 export default function Navbar({
   onCartClick,
@@ -25,9 +26,8 @@ export default function Navbar({
   const { isLoggedIn, setIsLoggedIn, cart, wishlist, activeVehicle } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Measure the real rendered height of the nav (banner + main bar) so the
-  // mobile drawer always starts exactly where the nav ends, on any screen
-  // size or text-wrap state — no more hardcoded top-[105px].
+  const { data: session } = authClient.useSession()
+  const UserInfo = session?.user
   const navRef = useRef<HTMLDivElement>(null);
   const [navHeight, setNavHeight] = useState(0);
 
@@ -66,14 +66,22 @@ export default function Navbar({
   const loggedInRoutes = [
     { name: "Home", href: "#" },
     { name: "Shop Parts", href: "#shop" },
-    { name: "My Wishlist", href: "#wishlist", badge: wishlist.length },
-    { name: "Order Tracking", href: "#tracking" },
-    { name: "My Garage", href: "#garage" },
-    { name: "Admin Dashboard", href: "#admin" }
+    { name: "About Us", href: "#about" },
+    { name: "Contact Us", href: "#contact" },
+    { name: " Dashboard", href: "#admin" }
   ];
 
-  const activeRoutes = isLoggedIn ? loggedInRoutes : loggedOutRoutes;
+  const activeRoutes = UserInfo ? loggedInRoutes : loggedOutRoutes;
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
+
+  const userInitial = session?.user?.name?.[0]?.toUpperCase() ?? "U";
+  const userName = session?.user?.name ?? "Guest";
+  const userEmail = session?.user?.email ?? "";
+
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    setMobileMenuOpen(false);
+  };
 
   return (
     <div ref={navRef} className="sticky top-0 z-50 w-full">
@@ -193,15 +201,23 @@ export default function Navbar({
 
               {/* User Profile Info / Button */}
               <div className="hidden md:flex items-center gap-2 border-l border-zinc-800 pl-2 lg:pl-3">
-                {isLoggedIn ? (
+                {session ? (
                   <div className="flex items-center gap-2 lg:gap-3">
                     <div className="w-8 h-8 shrink-0 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-center font-bold text-zinc-950 ring-2 ring-amber-500/30">
-                      S
+                      {userInitial}
                     </div>
                     <div className="text-left hidden lg:block">
-                      <p className="text-xs font-semibold text-zinc-200">Shifat</p>
-                      <p className="text-[10px] text-zinc-400">Admin Account</p>
+                      <p className="text-xs font-semibold text-zinc-200">{userName}</p>
+                      <p className="text-[10px] text-zinc-400">{userEmail}</p>
                     </div>
+                    <button
+                      onClick={handleSignOut}
+                      className="flex items-center gap-1.5 px-3 lg:px-4 py-2 bg-zinc-900 border border-zinc-700 hover:border-amber-500 text-zinc-300 hover:text-amber-400 font-bold rounded-lg text-xs tracking-wider transition-all duration-300 cursor-pointer whitespace-nowrap"
+                      title="Sign Out"
+                    >
+                      <LogOut className="w-3.5 h-3.5 stroke-[2.5]" />
+                      <span className="hidden lg:inline">LOG OUT</span>
+                    </button>
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
@@ -280,26 +296,23 @@ export default function Navbar({
               </div>
             )}
 
-            {isLoggedIn ? (
+            {session ? (
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-3 p-2 bg-zinc-900/50 rounded-xl">
                   <div className="w-10 h-10 shrink-0 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-center font-bold text-zinc-950 text-base">
-                    S
+                    {userInitial}
                   </div>
                   <div className="min-w-0">
-                    <h5 className="font-bold text-zinc-100 text-sm truncate">Symun Hossain Shifat</h5>
-                    <p className="text-xs text-zinc-400 truncate">admin@drivemax.com</p>
+                    <h5 className="font-bold text-zinc-100 text-sm truncate">{userName}</h5>
+                    <p className="text-xs text-zinc-400 truncate">{userEmail}</p>
                   </div>
                 </div>
                 <button
-                  onClick={() => {
-                    setIsLoggedIn(false);
-                    setMobileMenuOpen(false);
-                  }}
+                  onClick={handleSignOut}
                   className="flex items-center justify-center gap-2 w-full py-3.5 border border-zinc-800 hover:bg-zinc-900 text-zinc-300 rounded-xl text-sm font-semibold transition-colors cursor-pointer"
                 >
                   <LogOut className="w-4 h-4" />
-                  Sign Out of Simulator
+                  Log Out
                 </button>
               </div>
             ) : (
