@@ -57,12 +57,11 @@ export default async function Layout({ children }: LayoutProps) {
 
         <div className="flex flex-1 flex-col overflow-y-auto">
           <main className="flex-1 p-4 md:p-6">
-            <Navbar
-              onCartClick={() => { }}
-              onWishlistClick={() => { }}
-            />
+
+
+
             {children}
-            <Footer />
+
           </main>
         </div>
       </div>

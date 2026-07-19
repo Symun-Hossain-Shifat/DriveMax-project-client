@@ -3,8 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useApp } from "./AppContext";
 import {
-  ShoppingBag,
-  Heart,
   User,
   Menu,
   X,
@@ -16,16 +14,8 @@ import {
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
-interface NavbarProps {
-  onCartClick?: () => void;
-  onWishlistClick?: () => void;
-}
-
-export default function Navbar({
-  onCartClick,
-  onWishlistClick,
-}: NavbarProps) {
-  const { isLoggedIn, setIsLoggedIn, cart, wishlist, activeVehicle } = useApp();
+export default function Navbar() {
+  const { isLoggedIn, setIsLoggedIn, activeVehicle } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const { data: session } = authClient.useSession()
@@ -59,22 +49,21 @@ export default function Navbar({
   }, [mobileMenuOpen]);
 
   const loggedOutRoutes = [
-    { name: "Home", href: "#" },
+    { name: "Home", href: "/" },
     { name: "Shop Parts", href: "#shop" },
-    { name: "About Us", href: "About" },
-    { name: "Contact Us", href: "Contact" }
+    { name: "About Us", href: "/About" },
+    { name: "Contact Us", href: "/Contact" }
   ];
 
   const loggedInRoutes = [
-    { name: "Home", href: "#" },
+    { name: "Home", href: "/" },
     { name: "Shop Parts", href: "#shop" },
-    { name: "About Us", href: "About" },
-    { name: "Contact Us", href: "Contact" },
-    { name: " Dashboard", href: `Dashboard/${UserInfo?.role}` }
+    { name: "About Us", href: "/About" },
+    { name: "Contact Us", href: "/Contact" },
+    { name: " Dashboard", href: `/Dashboard/${UserInfo?.role}` }
   ];
 
   const activeRoutes = UserInfo ? loggedInRoutes : loggedOutRoutes;
-  const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   const userInitial = session?.user?.name?.[0]?.toUpperCase() ?? "U";
   const userName = session?.user?.name ?? "Guest";
@@ -151,11 +140,6 @@ export default function Navbar({
                 >
                   <span className="flex items-center gap-1.5">
                     {route.name}
-                    {route.badge !== undefined && route.badge > 0 && (
-                      <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold leading-none text-black bg-amber-500 rounded-full animate-bounce">
-                        {route.badge}
-                      </span>
-                    )}
                   </span>
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
                 </a>
@@ -172,34 +156,6 @@ export default function Navbar({
                   <span className="truncate">Fits: {activeVehicle.year} {activeVehicle.make}</span>
                 </div>
               )}
-
-              {/* Wishlist Button */}
-              <button
-                onClick={() => onWishlistClick?.()}
-                className="relative p-2 sm:p-2.5 rounded-full hover:bg-zinc-900 border border-transparent hover:border-zinc-800 text-zinc-300 hover:text-amber-400 transition-all duration-300 cursor-pointer"
-                title="View Wishlist"
-              >
-                <Heart className="w-5 h-5" />
-                {wishlist.length > 0 && (
-                  <span className="absolute top-1 right-1 sm:top-1.5 sm:right-1.5 inline-flex items-center justify-center w-4 h-4 text-[9px] font-bold text-black bg-amber-500 rounded-full border border-zinc-950">
-                    {wishlist.length}
-                  </span>
-                )}
-              </button>
-
-              {/* Shopping Cart Button */}
-              <button
-                onClick={() => onCartClick?.()}
-                className="relative p-2 sm:p-2.5 rounded-full hover:bg-zinc-900 border border-transparent hover:border-zinc-800 text-zinc-300 hover:text-amber-400 transition-all duration-300 cursor-pointer"
-                title="View Cart"
-              >
-                <ShoppingBag className="w-5 h-5" />
-                {cartItemCount > 0 && (
-                  <span className="absolute top-1 right-1 sm:top-1.5 sm:right-1.5 inline-flex items-center justify-center w-4 h-4 text-[9px] font-bold text-black bg-amber-500 rounded-full border border-zinc-950 animate-pulse">
-                    {cartItemCount}
-                  </span>
-                )}
-              </button>
 
               {/* User Profile Info / Button */}
               <div className="hidden md:flex items-center gap-2 border-l border-zinc-800 pl-2 lg:pl-3">
@@ -275,11 +231,6 @@ export default function Navbar({
                   className="flex items-center justify-between text-base font-semibold py-2.5 px-3 rounded-lg hover:bg-zinc-900 text-zinc-300 hover:text-white transition-all duration-200"
                 >
                   <span>{route.name}</span>
-                  {route.badge !== undefined && route.badge > 0 && (
-                    <span className="px-2 py-0.5 text-xs font-bold leading-none text-black bg-amber-500 rounded-full">
-                      {route.badge}
-                    </span>
-                  )}
                 </a>
               ))}
             </div>

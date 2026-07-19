@@ -28,11 +28,7 @@ function MainContent() {
   return (
     <div className="flex flex-col min-h-screen bg-zinc-950 font-sans text-zinc-100 antialiased select-none selection:bg-amber-500 selection:text-black">
 
-      {/* Dynamic Navbar */}
-      <Navbar
-        onCartClick={() => openDrawer("cart")}
-        onWishlistClick={() => openDrawer("wishlist")}
-      />
+
 
       {/* Hero Header */}
       <Hero />
@@ -60,9 +56,6 @@ function MainContent() {
 
       {/* Support FAQ collapsible questions & newsletter signups */}
       <FAQAndNewsletter />
-
-      {/* Directory contact and footer info */}
-      <Footer />
 
       {/* Sliding cart / wishlist drawer */}
       <CartWishlistDrawer
