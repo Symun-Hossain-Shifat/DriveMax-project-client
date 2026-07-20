@@ -1,36 +1,218 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚗 DriveMax - Client Side
 
-## Getting Started
+DriveMax is a modern full-stack automotive e-commerce platform where users can browse, search, and manage automotive products such as car parts, motorcycle parts, electric vehicles, and accessories. The application features secure authentication, role-based authorization, responsive UI, product management, and an intuitive shopping experience.
 
-First, run the development server:
+## 🌐 Live Website
+
+**Client:** https://drive-max-project-client.vercel.app
+
+**Server:** https://drive-max-project-server.vercel.app
+
+---
+
+## ✨ Features
+
+- 🔐 Secure Authentication with Better Auth
+- 🔑 Google Sign-In & Email/Password Login
+- 👤 Role-Based Authorization (Admin & User)
+- 🚘 Browse Automotive Products
+- 🔍 Search Products by Name
+- 🗂️ Filter Products by Category
+- 💰 Filter Products by Price Range
+- ➕ Add New Products
+- ✏️ Update Existing Products
+- 🗑️ Delete Products (Admin Only)
+- 📱 Fully Responsive Design
+- 🎨 Modern UI with Tailwind CSS
+- ⚡ Fast Performance using Next.js 16
+- 🔔 Toast Notifications
+- 🌙 Clean User Experience
+- 🔒 Protected Routes
+- 🖼️ Optimized Image Loading
+- 📄 Dynamic Product Details Page
+
+---
+
+## 🛠️ Technologies Used
+
+### Frontend
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- DaisyUI
+- Better Auth
+- React Hook Form
+- React Icons
+- Sonner
+- Axios
+
+### Backend
+
+- Express.js
+- MongoDB
+- Better Auth
+- JWT Authentication
+- JOSE
+- TypeScript
+
+---
+
+## 📂 Project Structure
+
+```bash
+src/
+│
+├── app/
+├── components/
+├── hooks/
+├── lib/
+├── provider.tsx
+├── styles/
+└── utils/
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env.local` file in the root directory.
+
+```env
+NEXT_PUBLIC_SERVER_URI=http://localhost:5000
+
+MONGO_URL=your_mongodb_connection_string
+
+BETTER_AUTH_SECRET=your_secret
+
+BETTER_AUTH_URL=http://localhost:3000
+
+GOOGLE_CLIENT_ID=your_google_client_id
+
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+---
+
+## ⚙️ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/Symun-Hossain-Shifat/DriveMax-project-client.git
+```
+
+Move into the project directory
+
+```bash
+cd DriveMax-project-client
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📦 Available Scripts
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Start development server.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build
+```
 
-## Deploy on Vercel
+Create production build.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Run production server.
+
+```bash
+npm run lint
+```
+
+Run ESLint.
+
+---
+
+## 🔐 User Roles
+
+### 👤 User
+
+- Register/Login
+- Browse Products
+- Search Products
+- Filter Products
+- View Product Details
+- Add Products
+- Update Own Products
+
+### 👑 Admin
+
+- All User Permissions
+- Delete Products
+- Manage Products
+- Manage Users
+
+---
+
+## 📸 Screenshots
+
+| Home | Products | Dashboard |
+|------|----------|-----------|
+| Add your screenshot | Add your screenshot | Add your screenshot |
+
+---
+
+## 🚀 Deployment
+
+### Client
+
+Vercel
+
+### Server
+
+Vercel / Render
+
+---
+
+## 👨‍💻 Developer
+
+**Symun Hossain Shifat**
+
+- GitHub: https://github.com/Symun-Hossain-Shifat
+- Email: your-email@example.com
+
+---
+
+## ⭐ Support
+
+If you like this project, please consider giving it a ⭐ on GitHub.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
