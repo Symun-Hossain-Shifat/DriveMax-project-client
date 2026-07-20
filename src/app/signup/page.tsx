@@ -74,12 +74,19 @@ export default function SignupPage() {
     }
   };
 
-  const handleGoogleSignUp = () => {
+  const handleGoogleSignIn = async () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      showToast("Google Sign Up", "success", "Account created with Google successfully!");
+      showToast("Google Sign In", "success", "Signed in with Google successfully!");
     }, 1200);
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+    if (data) {
+      toast.success('Login Successfull')
+      redirect('/')
+    }
   };
 
   return (
@@ -131,7 +138,7 @@ export default function SignupPage() {
             {/* Google Sign Up Button */}
             <button
               type="button"
-              onClick={handleGoogleSignUp}
+              onClick={handleGoogleSignIn}
               disabled={isLoading}
               className="w-full flex items-center justify-center gap-3 py-3 px-4 bg-white hover:bg-zinc-100 text-zinc-800 font-bold text-sm rounded-xl border border-zinc-200 transition-all duration-200 shadow-sm active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer mb-6"
             >

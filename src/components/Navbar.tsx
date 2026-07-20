@@ -13,6 +13,7 @@ import {
 } from "./Icons";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
+import { userInfo } from "node:os";
 
 export default function Navbar() {
   const { isLoggedIn, setIsLoggedIn, activeVehicle } = useApp();
@@ -20,6 +21,8 @@ export default function Navbar() {
 
   const { data: session } = authClient.useSession()
   const UserInfo = session?.user
+  console.log(UserInfo)
+  const role = session?.user?.role
   const navRef = useRef<HTMLDivElement>(null);
   const [navHeight, setNavHeight] = useState(0);
 
@@ -50,17 +53,17 @@ export default function Navbar() {
 
   const loggedOutRoutes = [
     { name: "Home", href: "/" },
-    { name: "Shop Parts", href: "#shop" },
+    { name: "Shop Parts", href: "/products" },
     { name: "About Us", href: "/About" },
     { name: "Contact Us", href: "/Contact" }
   ];
 
   const loggedInRoutes = [
     { name: "Home", href: "/" },
-    { name: "Shop Parts", href: "#shop" },
+    { name: "Shop Parts", href: "/products" },
     { name: "About Us", href: "/About" },
     { name: "Contact Us", href: "/Contact" },
-    { name: " Dashboard", href: `/Dashboard/${UserInfo?.role}` }
+    { name: " Dashboard", href: `/Dashboard/${role}` }
   ];
 
   const activeRoutes = UserInfo ? loggedInRoutes : loggedOutRoutes;

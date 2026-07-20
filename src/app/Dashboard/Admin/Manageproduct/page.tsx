@@ -1,6 +1,7 @@
 import React from "react";
 import { GetAllProducts } from "@/lib/Actions/GetProduct";
-import ProductManageTable from "@/app/Components/ProductManageTable";
+import ProductManageTable from "@/components/ProductManageTable";
+
 
 
 
@@ -26,7 +27,7 @@ const ManageProductPage = async () => {
         </div>
 
         {products && products.length > 0 ? (
-          <ProductManageTable products={products}  />
+          <ProductManageTable products={products} />
         ) : (
           <div className="rounded-xl border border-dashed py-20 text-center">
             <h2 className="text-xl font-semibold">No Products Found</h2>

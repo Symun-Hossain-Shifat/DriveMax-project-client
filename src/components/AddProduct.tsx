@@ -1,6 +1,6 @@
 "use client";
 
-
+import PostProduct from "@/lib/Actions/Post";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState, useEffect } from "react";
@@ -16,13 +16,13 @@ interface ItemFormData {
   image: string;
 }
 
-const CATEGORIES = [
-  { value: "electronics", label: "Electronics" },
-  { value: "clothing", label: "Clothing" },
-  { value: "shoes", label: "Shoes" },
-  { value: "home", label: "Home & Kitchen" },
-  { value: "books", label: "Books & Stationery" },
-  { value: "software", label: "Software & Services" },
+export const CATEGORIES = [
+  { value: "cars", label: "Cars" },
+  { value: "bikes", label: "Bikes" },
+  { value: "electric-vehicles", label: "Electric Vehicles" },
+  { value: "commercial-vehicles", label: "Commercial Vehicles" },
+  { value: "spare-parts", label: "Spare Parts" },
+  { value: "accessories", label: "Accessories" },
 ];
 
 export default function AddItemForm() {
@@ -76,12 +76,12 @@ export default function AddItemForm() {
       return;
     }
 
-
-    // console.log(result);
-    // if (result) {
-    //   toast.success("Product Published Successfully");
-    //   router.push("/Dashboard/User");
-    // }
+    const result = await PostProduct(formData);
+    console.log(result);
+    if (result) {
+      toast.success("Product Published Successfully");
+      router.push("/Dashboard/User");
+    }
   };
 
   return (

@@ -64,12 +64,19 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = async () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       showToast("Google Sign In", "success", "Signed in with Google successfully!");
     }, 1200);
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+    if (data) {
+      toast.success('Login Successfull')
+      redirect('/')
+    }
   };
 
   return (

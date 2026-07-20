@@ -4,7 +4,8 @@ import { GetSpecificProductbyauthoremail } from "@/lib/Actions/GetProduct";
 
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import ProductManageTableuser from "@/app/Components/productmanageforuser";
+import ProductManageTableuser from "@/components/productmanageforuser";
+
 
 const ManageProductPage = async () => {
   let session = null;
